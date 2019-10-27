@@ -9,7 +9,7 @@ def str2utf8(s):
         ret+=chr(16*(int(i[0],16))+int(i[1],16)).encode('latin1')
     return ret.decode('utf-8')
 
-def init_data(data_name):
+def init_data(data_name='Asa_PinYin'):
     #load the hanzi list
     global dataDict
     dataList=[]
@@ -63,42 +63,6 @@ def init_data(data_name):
             else:
                 absDict[j]=[i[0]]
                 
-import cv2
-def deal_emoj():
-    global emojiList
-    if not os.path.exists('emoji'):
-        raise Exception('no emoji in dir')
-    if not os.path.exists('emoji/emoji.txt'):
-        tmp=[i[1] for i in emojiList]
-        with open('emoji/emoji.txt','w+') as f:
-            f.write('\n'.join(tmp))
-    with open('emoji/emoji.txt','r') as f:
-        emojiBuffer=f.read().replace(' ','')
-    dealList=[i.split(',') for i in emojiBuffer.split('\n')]
-    i=0
-    #0 is in order
-    mode=0
-    while True:
-        if mode==0:
-            while i < len(dealList) and (not len(dealList[i])==1):
-                i+=1
-            if i==len(dealList):
-                print('done with 0 mode')
-                break
-            cv2.imshow('test',cv2.imread('emoji/'+dealList[i][0]))
-            cv2.waitKey(100)
-            print('input the %s'%dealList[i][0])
-            inp=input().replace(' ','').replace('\n','').replace('\t','').lower()
-            if inp=='':
-                break
-            if not inp in dealList[i]:
-                dealList[i].append(inp)
-            i+=1
-        else:
-            raise Exception('known mode')
-    with open('emoji/emoji.txt','w+') as f:
-        f.write('\n'.join([','.join(i) for i in dealList]))
-
 def is_space(s):
     if s==' ' or s=='\t' or s=='\r' or s=='\f' or s=='\n':
         return True
@@ -189,15 +153,20 @@ def str2abs(s):
             ret+=i
     return ret
 
+def get_emojiList():
+    global emojiList
+    return emojiList
+def get_emojiDict():
+    global emojiDict
+    return emojiDict
+
 def main():
     global dataDict
     global emojiDict
     global emojiDict
     #deal_emoj()
     print(str2abs('你是真滴牛皮'))
-    with open('test.html','w+') as f:
-        f.write(''.join(emojiDict.values()))
-    
+
 if __name__ == '__main__':
-    init_data('Asa_PinYin')
+    init_data()
     main()
