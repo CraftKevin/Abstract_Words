@@ -67,7 +67,7 @@ def deal_emoj(mode=1):
             else:
                 if not inp in dealList[i]:
                     if dealList[i][-1]=='-':
-                        dealList.pop()
+                        dealList[i].pop()
                     dealList[i].append(inp)
         else:
             raise Exception('known mode')

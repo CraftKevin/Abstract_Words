@@ -2,6 +2,8 @@ import sys
 from random import random
 import os
 
+isDebug=False
+
 def str2utf8(s):
     s=s[1:].split('%')
     ret=b''
@@ -12,6 +14,7 @@ def str2utf8(s):
 def init_data(data_name='Asa_PinYin'):
     #load the hanzi list
     global dataDict
+    global isDebug
     dataList=[]
     with open(data_name,'r') as f:
         dataBuffer=f.read()
@@ -27,10 +30,12 @@ def init_data(data_name='Asa_PinYin'):
         while ord('a')<=ord(i[l]) and ord(i[l])<=ord('z'):
             l=l-1
         if l < 0:
-            print(i)
+            if isDebug:
+                print(i)
             raise Exception('str are all alpha')
         elif l == len(i)-1:
-            print(i)
+            if isDebug:
+                print(i)
             raise Exception('str has no alpha')
         dataList.append([i[l+1:],i[:l+1]])
     dataDict={}
@@ -58,10 +63,14 @@ def init_data(data_name='Asa_PinYin'):
         for j in i[1:]:
             if j=='-':
                 continue
+            repNum=1
+            if '^' in j:
+                repNum=int(j[j.find('^')+1:])
+                j=j[:j.find('^')]
             if j in absDict:
-                absDict[j].append(i[0])
+                absDict[j].append({i[0]:repNum})
             else:
-                absDict[j]=[i[0]]
+                absDict[j]=[{i[0]:repNum}]
                 
 def is_space(s):
     if s==' ' or s=='\t' or s=='\r' or s=='\f' or s=='\n':
@@ -84,7 +93,8 @@ def str2abs(s):
     while True:
         if i == len(s):
             break
-        print(s[i])
+        if isDebug:
+            print(s[i])
         if ord(s[i])>255:
             #not ascii
             if s[i] in dataDict:
@@ -108,8 +118,9 @@ def str2abs(s):
         i+=1
     i=0
     absList=[]
-    print('wordList: ')
-    print(wordList)
+    if isDebug:
+        print('wordList: ')
+        print(wordList)
     while True:
         if i==len(wordList):
             break
@@ -122,8 +133,9 @@ def str2abs(s):
                 conPyList.append(wordList[j][1])
                 j+=1
                 conNum+=1
-            print('conPyList:')
-            print(conPyList)
+            if isDebug:
+                print('conPyList:')
+                print(conPyList)
             while True:
                 if conNum<=0:
                     break
@@ -148,7 +160,8 @@ def str2abs(s):
     ret=''
     for i in absList:
         if type(i)==list:
-            ret+=emojiDict[i[int(random()*10000)%len(i)]]
+            repDict=i[int(random()*10000)%len(i)].copy().popitem()
+            ret+=emojiDict[repDict[0]]*repDict[1]
         else:
             ret+=i
     return ret
@@ -165,8 +178,9 @@ def main():
     global emojiDict
     global emojiDict
     #deal_emoj()
-    print(str2abs('你是真滴牛皮'))
+    print(str2abs('那你是真滴牛皮，弟弟'))
 
 if __name__ == '__main__':
+    isDebug=True
     init_data()
     main()
