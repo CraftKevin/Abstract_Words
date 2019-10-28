@@ -145,7 +145,7 @@ bells_04_02.png,-
 bells_04_03.png,fangda
 bells_04_04.png,jiesuo
 bells_04_05.png,suo
-bells_04_06.png,yaoshi
+bells_04_06.png,yaoshi,yaochi
 bells_04_07.png,jiandao
 bells_04_08.png,dingyin
 bells_04_09.png,liang
