@@ -52,7 +52,7 @@ smiles_05_07.png,shui,di
 smiles_05_08.png,yinyue
 smiles_05_09.png,-
 smiles_05_10.png,huo
-smiles_05_11.png,shi,dabian
+smiles_05_11.png,shi,dabian,shit
 smiles_06_01.png,bang,damuzhi
 smiles_06_02.png,cai
 smiles_06_03.png,ok
