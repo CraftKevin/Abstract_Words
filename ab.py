@@ -91,7 +91,6 @@ def str2abs(s):
     global hasInit
 
     if not hasInit:
-        print('init')
         hasInit=True
         init_data()
     
