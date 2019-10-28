@@ -91,8 +91,8 @@ smiles_09_02.png,-
 smiles_09_03.png,-
 smiles_09_04.png,xiaohai,didi^2
 smiles_09_05.png,nainai
-smiles_09_06.png,yeye
-smiles_09_07.png,baba
+smiles_09_06.png,yeye^2
+smiles_09_07.png,baba^2
 smiles_09_08.png,-
 smiles_09_09.png,-
 smiles_09_10.png,-
