@@ -11,13 +11,15 @@ def str2utf8(s):
         ret+=chr(16*(int(i[0],16))+int(i[1],16)).encode('latin1')
     return ret.decode('utf-8')
 
-def init_data(data_name='Asa_PinYin'):
+def init_data():
     #load the hanzi list
     global dataDict
     global isDebug
+    global emojiUtf8
+    global emojiStr
+    global asaPinYin
     dataList=[]
-    with open(data_name,'r') as f:
-        dataBuffer=f.read()
+    dataBuffer=asaPinYin
     dataListTmp=dataBuffer.replace('\r','').split('\n')
     while True:
         try:
@@ -48,15 +50,13 @@ def init_data(data_name='Asa_PinYin'):
     #load the emoji list
     global emojiDict
     global emojiList
-    with open('EmojiUtf8','r') as f:
-        dataBuffer=f.read()
+    dataBuffer=emojiUtf8
     emojiList=[[str2utf8(i.split(',')[0]),i.split(',')[1]] for i in dataBuffer.split('\n')]
     emojiDict={i[1]:i[0] for i in emojiList}
     
     #loadd the absinfo
     global absDict
-    with open('emoji/emoji.txt','r') as f:
-        absBuffer=f.read()
+    absBuffer=emojiStr
     absBuffer=[i.split(',') for i in absBuffer.split('\n')]
     absDict={}
     for i in absBuffer:

@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 setup(
-    name = 'abstruct_words',
+    name = 'ab-words',
     version = '0.0.1',
     py_modules = ['ab'],
     author = 'yanghaomai',

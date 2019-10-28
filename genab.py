@@ -9,6 +9,9 @@ while ab_raw[pos]!='\n':
 qian=ab_raw[:pos]
 hou=ab_raw[pos:]
 ins='\nemojiUtf8='
+with open('EmojiUtf8','r') as f:
+    ins+=repr(f.read())
+ins+='\nasaPinYin='
 with open('Asa_PinYin','r') as f:
     ins+=repr(f.read())
 ins+='\n'
