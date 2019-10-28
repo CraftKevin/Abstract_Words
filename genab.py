@@ -19,6 +19,11 @@ ins+='emojiStr='
 with open('emoji/emoji.txt','r') as f:
     ins+=repr(f.read())
 ins+='\n'
+ins+='manDic='
+with open('Mandarin.dat','r') as f:
+    ins+=repr(f.read())
+ins+='\n'
 with open('ab.py','w+') as f:
     f.write(qian+ins+hou)
+
     

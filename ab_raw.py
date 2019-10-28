@@ -4,8 +4,15 @@ import os
 
 isDebug=False
 hasInit=False
+useMan=True
 
-def str2utf8(s):
+def hex2chr(s):
+    ret=0
+    for i in s:
+        ret=(ret<<4)+int(i,16)
+    return chr(ret)
+
+def hex2utf8(s):
     s=s[1:].split('%')
     ret=b''
     for i in s:
@@ -20,27 +27,37 @@ def init_data():
     global emojiStr
     global asaPinYin
     dataList=[]
-    dataBuffer=asaPinYin
-    dataListTmp=dataBuffer.replace('\r','').split('\n')
-    while True:
-        try:
-            dataListTmp.remove('')
-        except ValueError:
-            break
-    for i in dataListTmp:
+    if not useMan:
+        dataBuffer=asaPinYin
+        dataListTmp=dataBuffer.replace('\r','').split('\n')
+        while True:
+            try:
+                dataListTmp.remove('')
+            except ValueError:
+                break
+        for i in dataListTmp:
         #i=i.decode('utf-8')
-        l=len(i)-1
-        while ord('a')<=ord(i[l]) and ord(i[l])<=ord('z'):
-            l=l-1
-        if l < 0:
-            if isDebug:
-                print(i)
-            raise Exception('str are all alpha')
-        elif l == len(i)-1:
-            if isDebug:
-                print(i)
-            raise Exception('str has no alpha')
-        dataList.append([i[l+1:],i[:l+1]])
+            l=len(i)-1
+            while ord('a')<=ord(i[l]) and ord(i[l])<=ord('z'):
+                l=l-1
+            if l < 0:
+                if isDebug:
+                    print(i)
+                raise Exception('str are all alpha')
+            elif l == len(i)-1:
+                if isDebug:
+                    print(i)
+                raise Exception('str has no alpha')
+            dataList.append([i[l+1:],i[:l+1]])
+    else:
+        dataBuffer=manDic
+        dataBuffer=[i.split('\t') for i in dataBuffer.split('\n')]
+        while True:
+            try:
+                dataBuffer.remove([''])
+            except ValueError:
+                break
+        dataList=[[i[1].split(' ')[0][:-1].lower(),hex2chr(i[0])] for i in dataBuffer]
     dataDict={}
     for i in dataList:
         if not i[1] in dataDict:
@@ -52,7 +69,7 @@ def init_data():
     global emojiDict
     global emojiList
     dataBuffer=emojiUtf8
-    emojiList=[[str2utf8(i.split(',')[0]),i.split(',')[1]] for i in dataBuffer.split('\n')]
+    emojiList=[[hex2utf8(i.split(',')[0]),i.split(',')[1]] for i in dataBuffer.split('\n')]
     emojiDict={i[1]:i[0] for i in emojiList}
     
     #loadd the absinfo

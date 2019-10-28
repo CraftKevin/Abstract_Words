@@ -58,7 +58,7 @@ smiles_06_02.png,cai
 smiles_06_03.png,ok
 smiles_06_04.png,quan
 smiles_06_05.png,shou
-smiles_06_06.png,ye,yeah
+smiles_06_06.png,yeah
 smiles_06_07.png,buxing,bie
 smiles_06_08.png,ting,zhang
 smiles_06_09.png,shuangshou
@@ -92,7 +92,7 @@ smiles_09_03.png,-
 smiles_09_04.png,xiaohai,didi^2
 smiles_09_05.png,nainai
 smiles_09_06.png,yeye^2
-smiles_09_07.png,baba^2
+smiles_09_07.png,baba^2,ye
 smiles_09_08.png,-
 smiles_09_09.png,-
 smiles_09_10.png,-
