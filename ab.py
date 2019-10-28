@@ -3,6 +3,7 @@ from random import random
 import os
 
 isDebug=False
+hasInit=False
 
 def str2utf8(s):
     s=s[1:].split('%')
@@ -87,6 +88,13 @@ def str2abs(s):
     global dataDict
     global emojiDict
     global absDict
+    global hasInit
+
+    if not hasInit:
+        print('init')
+        hasInit=True
+        init_data()
+    
     #split s to word
     wordList=[]
     i=0
@@ -186,6 +194,5 @@ emojiStr='smiles_01_01.png,xiao\nsmiles_01_02.png,weixiao\nsmiles_01_03.png,kaix
 
 if __name__ == '__main__':
     isDebug=True
-    init_data()
     main()
     print(temp)
